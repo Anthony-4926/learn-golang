@@ -1,0 +1,20 @@
+{{define "index.html"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>后台加载html模板</h1>
+    <h1>{{.transfer}}</h1>
+    <h1>{{.stru.Name}}{{.stru.Age}}</h1>
+    <h1>展示</h1>
+        {{range $key, $value := .list}}
+        <li>{{$key}}:{{$value}}</li>
+        {{end}}
+    <h1>加载静态文件</h1>
+        <img src={{.imgSrc}}>
+</body>
+</html>
+{{end}}

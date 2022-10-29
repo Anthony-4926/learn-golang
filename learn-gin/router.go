@@ -10,7 +10,7 @@ type student struct {
 	Age  int    `json:"age"`
 }
 
-func main() {
+func Router() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSONP(200, gin.H{
