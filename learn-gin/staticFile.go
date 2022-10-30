@@ -11,6 +11,7 @@ func StaticFile() {
 	r.Static("/static", "./static")
 	r.GET("/static", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title":  "学习gin框架",
 			"imgSrc": "/static/images/img.png",
 		})
 	})

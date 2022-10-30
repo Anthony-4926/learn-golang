@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{.title}}</title>
 </head>
 <body>
     <h1>后台加载html模板</h1>
@@ -15,6 +15,11 @@
         {{end}}
     <h1>加载静态文件</h1>
         <img src={{.imgSrc}}>
+
+    <h1>POST请求传值</h1>
+        <form action="/addKey" method="post">
+            name:<input type="text" name="name">
+        </form>
 </body>
 </html>
 {{end}}
