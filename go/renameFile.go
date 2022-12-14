@@ -1,20 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"strings"
 )
 
 func RenameFile() {
-	folder := "F:\\MySQL\\视频"
+	folder := "F:\\kafka"
 	files, _ := ioutil.ReadDir(folder)
 	for _, file := range files {
-		//oldPath := path.Join(folder, file.Name())
-		newName := strings.Split(file.Name(), "-")[1]
+		oldPath := path.Join(folder, file.Name())
+		newName := strings.Split(file.Name(), "Java必备 - ")[1]
 		newPath := path.Join(folder, newName)
-		//os.Rename(oldPath, newPath)
-		fmt.Println(newPath)
+		os.Rename(oldPath, newPath)
+		//fmt.Println(newPath)
 	}
 }
