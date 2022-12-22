@@ -4,16 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/gorilla/mux"
 	"learn-golang/go-kit/Endpoint"
 	"net/http"
 	"strconv"
 )
 
 func DecodeUserRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	vars := mux.Vars(r)
-	if _uid, ok := vars["uid"]; ok {
-		uid, _ := strconv.Atoi(_uid)
+	_uid := r.URL.Query().Get("uid")
+	if uid, ok := strconv.Atoi(_uid); ok == nil {
 		return Endpoint.UserRequest{Uid: uid, Method: r.Method}, nil
 	}
 	return nil, errors.New("参数错误")
