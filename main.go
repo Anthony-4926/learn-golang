@@ -1,17 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-)
+import "fmt"
 
 func main() {
 
-	a, _ := strconv.ParseInt("01101100100000", 2, 64)
-	b, _ := strconv.ParseInt("00000000100000", 2, 64)
-
-	c := a & (-a)
+	a := []int{1, 2, 3, 4, 5, 6}
+	b := []int{0, 0, 0}
 	fmt.Println(a)
-	fmt.Printf("b=%d, c=%d", b, c)
+	fmt.Println(b)
+
+	copy(a[1:], b)
+	fmt.Println(a)
+	fmt.Println(b)
 
 }
