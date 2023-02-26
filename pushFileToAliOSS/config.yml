@@ -1,0 +1,9 @@
+oss:
+  endPoint: "https://oss-cn-hangzhou.aliyuncs.com"
+  accessKeyId: "LTAI5tFxKgmBiKB4ppitWuST"
+  accessKeySecret: "p6xEuY3T5gJx7pY5GxMZKGuq3NchPY"
+  bucket: "tiktok-video-4926"
+  root: "https://tiktok-video-4926.oss-cn-hangzhou.aliyuncs.com/"
+
+etcd:
+  etcdAddr: "121.199.12.107:2379"

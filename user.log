@@ -1,0 +1,2 @@
+{"host":"localhost","level":"info","msg":"时间戳格式设置","service":"login","time":"2023/01/29 13:01:08","user_id":1}
+{"file":"D:/Program/GoLang/learn-golang/logrus/logrus常用方法.go:24","func":"main.main","host":"localhost","level":"info","msg":"时间戳格式设置","service":"login","time":"2023/01/29 13:13:02","user_id":1}

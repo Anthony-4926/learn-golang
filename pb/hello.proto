@@ -1,0 +1,18 @@
+syntax = "proto3"; // proto版本
+
+package pb; // 当前proto文件所在的包
+
+// 分号前是利用该proto文件生成go文件时的文件路径。分号之后是go文件所在的包
+option go_package = "./; hello";
+
+message HelloRequest{
+  string RequestValue = 1;
+}
+
+message HelloResponse{
+  string ResponseValue = 1;
+}
+
+service HelloService{
+  rpc Hello(HelloRequest) returns (HelloResponse);
+}
