@@ -1,16 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"log"
+)
 
 func main() {
 
-	a := []int{1, 2, 3, 4, 5, 6}
-	b := []int{0, 0, 0}
-	fmt.Println(a)
-	fmt.Println(b)
-
-	copy(a[1:], b)
-	fmt.Println(a)
-	fmt.Println(b)
-
+	log.Println(`BindWith(\"interface{}, binding.Binding\") error is going to
+	be deprecated, please check issue #662 and either use MustBindWith() if you
+	want HTTP 400 to be automatically returned if any error occur, or use
+	ShouldBindWith() if you need to manage the error.`)
 }
