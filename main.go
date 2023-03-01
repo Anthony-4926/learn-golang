@@ -1,13 +1,11 @@
 package main
 
-import (
-	"log"
-)
+import "fmt"
 
 func main() {
-
-	log.Println(`BindWith(\"interface{}, binding.Binding\") error is going to
-	be deprecated, please check issue #662 and either use MustBindWith() if you
-	want HTTP 400 to be automatically returned if any error occur, or use
-	ShouldBindWith() if you need to manage the error.`)
+	var a uint8 = 255
+	var b uint8 = 1
+	fmt.Printf("%d的二进制: %08b\n", a, a)
+	fmt.Printf("  %d的二进制: %08b\n", b, b)
+	fmt.Printf("a+b的二进制: %08b\n", a+b)
 }
