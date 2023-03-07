@@ -1,23 +1,24 @@
 package main
 
-import "fmt"
-
-type trieNode struct {
-	Pass  int
-	End   int
-	Nexts [26]*trieNode
-}
+//type People interface {
+//	speek()
+//}
+//
+//type Student struct {
+//	name string
+//}
+//
+//type Worker struct {
+//	name string
+//}
+//
+//func (s *Student) speek() {
+//	fmt.Printf("我的名字叫%s", s.name)
+//}
 
 func main() {
-	a := &trieNode{
-		Pass:  0,
-		End:   0,
-		Nexts: [26]*trieNode{},
-	}
-	//a.Nexts[0] = &trieNode{
-	//	Pass:  0,
-	//	End:   0,
-	//	Nexts: [26]*trieNode{},
-	//}
-	fmt.Println(a.Nexts)
+	var ch chan int = make(chan int, 2)
+	a := 1
+	ch <- a
+
 }
