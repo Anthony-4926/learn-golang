@@ -1,22 +1,28 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"time"
 )
 
-func Html() {
-	r := gin.Default()
-	r.Static("./img", "./static")
-	r.LoadHTMLGlob("./templates/*")
-	r.GET("/", func(c *gin.Context) {
-		stru := &student{Name: "zhaoxin", Age: 23}
-		list := []string{"list1", "list2", "list3", "list4"}
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"transfer": "这是我从后台传递过来的数据",
-			"stru":     stru,
-			"list":     list,
-		})
-	})
+func StatCost(c *gin.Context) {
+	start := time.Now()
+	// 调用该请求的剩余处理程序
+	c.Next()
+	// 计算耗时
+	cost := time.Since(start)
+	fmt.Println(cost)
+}
+
+func main() {
+	r := gin.New()
+
+	shopGroup := r.Group("/shop")
+	shopGroup.Use(StatCost)
+	{
+		shopGroup.GET("/index", func(c *gin.Context) {})
+	}
+
 	r.Run()
 }

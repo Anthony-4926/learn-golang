@@ -1,19 +1,22 @@
 package data_structure
 
-type HeapNode map[interface{}]interface{}
-
-type HeapGreater struct {
-	heap         []interface{}
-	inverseIndex map[interface{}]int
-	heapSize     int
-	less         func(a, b interface{}) bool
+type HeapNode struct {
+	val int
 }
 
-func NewHeapGreater(less func(a, b interface{}) bool) *HeapGreater {
+type HeapGreater struct {
+	heap     []*HeapNode
+	indexMap map[*HeapNode]int
+	heapSize int
+	less     func(*HeapNode, *HeapNode) bool
+}
+
+func NewHeapGreater(c func(*HeapNode, *HeapNode) bool) *HeapGreater {
 	return &HeapGreater{
-		less:         less,
-		inverseIndex: map[interface{}]int{},
-		heap:         []interface{}{},
+		heap:     make([]*HeapNode, 0),
+		indexMap: make(map[*HeapNode]int),
+		heapSize: 0,
+		less:     c,
 	}
 }
 
@@ -25,44 +28,52 @@ func (h *HeapGreater) Size() int {
 	return h.heapSize
 }
 
-func (h *HeapGreater) Contains(obj interface{}) bool {
-	if _, ok := h.inverseIndex[obj]; ok {
-		return true
-	}
-	return false
+func (h *HeapGreater) Contains(obj *HeapNode) bool {
+	_, ok := h.indexMap[obj]
+	return ok
 }
 
-func (h *HeapGreater) Peek() interface{} {
+func (h *HeapGreater) Peek() *HeapNode {
 	return h.heap[0]
 }
 
-func (h *HeapGreater) Pop() {
-	h.Remove(h.heap[0])
-}
-
-func (h *HeapGreater) Remove(obj interface{}) {
-	index := h.inverseIndex[obj]
-	h.swap(index, h.heapSize-1)
-	delete(h.inverseIndex, obj)
-	h.heapSize--
-	h.heap = h.heap[:h.heapSize]
-	if index < h.heapSize {
-		h.resign(index)
-	}
-
-}
-
-func (h *HeapGreater) resign(index int) {
-	h.heapInsert(index)
-	h.heapify(index)
-}
-
-func (h *HeapGreater) Add(obj interface{}) {
+func (h *HeapGreater) Push(obj *HeapNode) {
 	h.heap = append(h.heap, obj)
+	h.indexMap[obj] = h.heapSize
+	h.heapInsert(h.heapSize)
 	h.heapSize++
-	h.inverseIndex[obj] = h.heapSize - 1
-	h.heapInsert(h.heapSize - 1)
+}
 
+func (h *HeapGreater) Pop() *HeapNode {
+	ans := h.heap[0]
+	h.swap(0, h.heapSize-1)
+	delete(h.indexMap, ans)
+	h.heap = h.heap[:h.heapSize-1]
+	h.heapSize--
+	h.heapify(0)
+	return ans
+}
+
+func (h *HeapGreater) Remove(obj *HeapNode) {
+	replace := h.heap[h.heapSize-1]
+	index := h.indexMap[obj]
+	delete(h.indexMap, obj)
+	h.heap = h.heap[:h.heapSize-1]
+	h.heapSize--
+	if obj != replace {
+		h.heap[index] = replace
+		h.indexMap[replace] = index
+		h.Resign(replace)
+	}
+}
+
+func (h *HeapGreater) Resign(obj *HeapNode) {
+	h.heapInsert(h.indexMap[obj])
+	h.heapify(h.indexMap[obj])
+}
+
+func (h *HeapGreater) GetAllElements() []*HeapNode {
+	return h.heap
 }
 
 func (h *HeapGreater) heapInsert(index int) {
@@ -75,29 +86,26 @@ func (h *HeapGreater) heapInsert(index int) {
 func (h *HeapGreater) heapify(index int) {
 	left := index*2 + 1
 	for left < h.heapSize {
-		minIndex := index
-		if h.less(h.heap[left], h.heap[minIndex]) {
-			minIndex = left
+		best := left + 1
+		if best < h.heapSize && h.less(h.heap[best], h.heap[left]) {
+			best = left + 1
+		} else {
+			best = left
 		}
-		if left+1 < h.heapSize && h.less(h.heap[left+1], h.heap[minIndex]) {
-			minIndex = left + 1
-		}
-		if index == minIndex {
+		if !h.less(h.heap[best], h.heap[index]) {
 			break
 		}
-		h.swap(minIndex, index)
+		h.swap(best, index)
+		index = best
 		left = index*2 + 1
 	}
 }
 
-func (h *HeapGreater) swap(i int, j int) {
-	a, b := h.heap[i], h.heap[j]
-	h.inverseIndex[a] = j
-	h.inverseIndex[b] = i
-
-	h.heap[i], h.heap[j] = h.heap[j], h.heap[i]
-}
-
-func (h *HeapGreater) AllElem() []interface{} {
-	return h.heap
+func (h *HeapGreater) swap(i, j int) {
+	o1 := h.heap[i]
+	o2 := h.heap[j]
+	h.heap[i] = o2
+	h.heap[j] = o1
+	h.indexMap[o2] = i
+	h.indexMap[o1] = j
 }

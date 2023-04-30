@@ -13,13 +13,15 @@ func NewGraph() *Graph {
 }
 
 type Node struct {
+	Val     int
 	In, Out int
 	Nexts   []*Node
 	Edges   map[int]*Edge
 }
 
-func NewNode() *Node {
+func NewNode(val int) *Node {
 	return &Node{
+		Val:   val,
 		Nexts: []*Node{},
 		Edges: map[int]*Edge{},
 	}

@@ -12,6 +12,7 @@ type student struct {
 
 func Router() {
 	r := gin.Default()
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSONP(200, gin.H{
 			"message": "这是我的第一个gin代码",
