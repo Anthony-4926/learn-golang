@@ -1,7 +1,6 @@
 package main
 
 import (
-	"strconv"
 	"testing"
 )
 
@@ -42,6 +41,5 @@ func f(c component) {
 
 func TestBuilder(t *testing.T) {
 	root := createContext()
-	strconv.Atoi()
 	f(root)
 }

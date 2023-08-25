@@ -10,6 +10,7 @@ func StatCost(c *gin.Context) {
 	start := time.Now()
 	// 调用该请求的剩余处理程序
 	c.Next()
+
 	// 计算耗时
 	cost := time.Since(start)
 	fmt.Println(cost)
